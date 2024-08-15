@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="LLama_AI.MainPage"
+             xmlns:sfChat="clr-namespace:Syncfusion.Maui.Chat;assembly=Syncfusion.Maui.Chat"
+             xmlns:local="clr-namespace:LLama_AI.ViewModel">
+
+    <ContentPage.BindingContext>
+        <local:ChatViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <!-- Chat History -->
+        <ScrollView Grid.Row="0" VerticalOptions="FillAndExpand">
+            <CollectionView x:Name="ChatCollectionView"
+                            ItemsSource="{Binding Messages}"
+                            VerticalOptions="FillAndExpand"
+                            Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5" Padding="10" 
+                               BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BooleanToColorConverter}}">
+                            <StackLayout>
+                                <!-- Display the Text -->
+                                <Label Text="{Binding Text}" 
+                                       TextColor="Black"
+                                       IsVisible="{Binding Text, Converter={StaticResource NullOrEmptyToBooleanConverter}}" />
+
+                                <!-- Display the Photo if available -->
+                                <Image Source="{Binding Photo}" 
+                                       IsVisible="{Binding Photo, Converter={StaticResource NullToBooleanConverter}}" 
+                                       Aspect="AspectFill" 
+                                       HeightRequest="200" />
+
+                                <!-- Display the Video if available -->
+                                <toolkit:MediaElement Source="{Binding VideoPath}" 
+                                                      IsVisible="{Binding VideoPath, Converter={StaticResource NullToBooleanConverter}}"
+                                                      HeightRequest="200" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+        <!-- Input Bar -->
+        <Grid RowDefinitions="Auto" VerticalOptions="End">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Text Input -->
+            <Entry Grid.Column="0"
+                   Placeholder="Type your message..."
+                   VerticalOptions="Center"
+                   Margin="10" 
+                   Text="{Binding Prompt, Mode=TwoWay}" />
+
+            <!-- Media Selection Button -->
+            <ImageButton Grid.Column="1"
+                         Source="paperclip.png"
+                         VerticalOptions="Center"
+                         Margin="0,0,10,0"
+                         Command="{Binding SelectMediaCommand}"
+                         WidthRequest="20"
+                         HeightRequest="20"/>
+
+            <!-- Send Button -->
+            <Button Grid.Column="2"
+                    Text="Send"
+                    VerticalOptions="Center"
+                    Margin="0,0,10,0"
+                    Command="{Binding SendCommand}" />
+        </Grid>
+    </Grid>
+</ContentPage>
