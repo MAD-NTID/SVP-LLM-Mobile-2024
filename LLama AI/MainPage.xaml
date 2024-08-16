@@ -5,75 +5,96 @@
              x:Class="LLama_AI.MainPage"
              xmlns:sfChat="clr-namespace:Syncfusion.Maui.Chat;assembly=Syncfusion.Maui.Chat"
              xmlns:local="clr-namespace:LLama_AI.ViewModel">
+             <!--ADD BACKGROUND ABOVE HERE-->
 
     <ContentPage.BindingContext>
         <local:ChatViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid>
-        <!-- Chat History -->
-        <ScrollView Grid.Row="0" VerticalOptions="FillAndExpand">
-            <CollectionView x:Name="ChatCollectionView"
-                            ItemsSource="{Binding Messages}"
-                            VerticalOptions="FillAndExpand"
-                            Margin="10">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Margin="5" Padding="10" 
-                               BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BooleanToColorConverter}}">
-                            <StackLayout>
-                                <!-- Display the Text -->
-                                <Label Text="{Binding Text}" 
-                                       TextColor="Black"
-                                       IsVisible="{Binding Text, Converter={StaticResource NullOrEmptyToBooleanConverter}}" />
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+            Source="dotnet_bot.png"
+            HeightRequest="185"
+            Aspect="AspectFit"
+            />
+            <!--CHANGE IMAGE SOURCE FROM dotnet_bot.png"-->
 
-                                <!-- Display the Photo if available -->
-                                <Image Source="{Binding Photo}" 
-                                       IsVisible="{Binding Photo, Converter={StaticResource NullToBooleanConverter}}" 
-                                       Aspect="AspectFill" 
-                                       HeightRequest="200" />
+            
+            <!--CHANGE THE NAME FROM MOBILE APP GPT-->
+            <Label
+                Text="Mobile App GPT"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
 
-                                <!-- Display the Video if available -->
-                                <toolkit:MediaElement Source="{Binding VideoPath}" 
-                                                      IsVisible="{Binding VideoPath, Converter={StaticResource NullToBooleanConverter}}"
-                                                      HeightRequest="200" />
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </ScrollView>
 
-        <!-- Input Bar -->
-        <Grid RowDefinitions="Auto" VerticalOptions="End">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <!-- Chat History -->
+            <ScrollView Grid.Row="0" VerticalOptions="FillAndExpand">
+                <CollectionView x:Name="ChatCollectionView"
+                                ItemsSource="{Binding Messages}"
+                                VerticalOptions="FillAndExpand"
+                                Margin="10">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Margin="5" Padding="10" 
+                                   BackgroundColor="{Binding IsUserMessage, Converter={StaticResource BooleanToColorConverter}}">
+                                <StackLayout>
+                                    <!-- Display the Text -->
+                                    <Label Text="{Binding Text}" 
+                                           TextColor="Black"
+                                           IsVisible="{Binding Text, Converter={StaticResource NullOrEmptyToBooleanConverter}}" />
 
-            <!-- Text Input -->
-            <Entry Grid.Column="0"
-                   Placeholder="Type your message..."
-                   VerticalOptions="Center"
-                   Margin="10" 
-                   Text="{Binding Prompt, Mode=TwoWay}" />
+                                    <!-- Display the Photo if available -->
+                                    <Image Source="{Binding Photo}" 
+                                           IsVisible="{Binding Photo, Converter={StaticResource NullToBooleanConverter}}" 
+                                           Aspect="AspectFill" 
+                                           HeightRequest="200" />
 
-            <!-- Media Selection Button -->
-            <ImageButton Grid.Column="1"
-                         Source="paperclip.png"
-                         VerticalOptions="Center"
-                         Margin="0,0,10,0"
-                         Command="{Binding SelectMediaCommand}"
-                         WidthRequest="20"
-                         HeightRequest="20"/>
+                                    <!-- Display the Video if available -->
+                                    <toolkit:MediaElement Source="{Binding VideoPath}" 
+                                                          IsVisible="{Binding VideoPath, Converter={StaticResource NullToBooleanConverter}}"
+                                                          HeightRequest="200" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
 
-            <!-- Send Button -->
-            <Button Grid.Column="2"
-                    Text="Send"
-                    VerticalOptions="Center"
-                    Margin="0,0,10,0"
-                    Command="{Binding SendCommand}" />
-        </Grid>
-    </Grid>
+            <!-- Input Bar -->
+            <Grid RowDefinitions="Auto" VerticalOptions="End" Padding="0,20,0,0">
+                <!-- Add padding to create space between chat messages and input bar -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Text Input -->
+                <Entry Grid.Column="0"
+                       Placeholder="Type your message..."
+                       VerticalOptions="Center"
+                       Margin="10" 
+                       Text="{Binding Prompt, Mode=TwoWay}" />
+
+                <!-- Media Selection Button -->
+                <ImageButton Grid.Column="1"
+                             Source="paperclip.png"
+                             VerticalOptions="Center"
+                             Margin="0,0,10,0"
+                             Command="{Binding SelectMediaCommand}"
+                             WidthRequest="20"
+                             HeightRequest="20"/>
+
+                <!-- Send Button -->
+                <Button Grid.Column="2"
+                        Text="Send"
+                        VerticalOptions="Center"
+                        Margin="0,0,10,0"
+                        Command="{Binding SendCommand}" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

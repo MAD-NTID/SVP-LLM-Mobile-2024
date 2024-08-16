@@ -9,6 +9,9 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <local:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+            <local:NullOrEmptyToBooleanConverter x:Key="NullOrEmptyToBooleanConverter" />
+            <local:BooleanToColorConverter x:Key="BooleanToColorConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

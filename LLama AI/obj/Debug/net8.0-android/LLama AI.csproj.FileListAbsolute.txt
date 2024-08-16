@@ -1185,3 +1185,5 @@ C:\Users\kscics\source\repos\LLAMA Mobile APP\LLama AI\obj\Debug\net8.0-android\
 C:\Users\kscics\source\repos\LLAMA Mobile APP\LLama AI\obj\Debug\net8.0-android\lp\208\jl\files.cache
 C:\Users\kscics\source\repos\LLAMA Mobile APP\LLama AI\obj\Debug\net8.0-android\lp\209\jl\files.cache
 C:\Users\kscics\source\repos\LLAMA Mobile APP\LLama AI\obj\Debug\net8.0-android\android\assets\Newtonsoft.Json.dll
+C:\Users\kscics\source\repos\LLAMA Mobile APP\LLama AI\obj\Debug\net8.0-android\LLama AI.sourcelink.json
+C:\Users\kscics\source\repos\LLAMA Mobile APP\LLama AI\obj\Debug\net8.0-android\resizetizer\r\drawable\ollama.png

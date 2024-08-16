@@ -59,19 +59,13 @@ namespace LLama_AI.ViewModel
                 return;
             }
 
-            string video = null;
-            string image = null;
-
-            if (_selectedMedia.ContentType.ToLower().Contains("image"))
+            var lastMessage = Messages.LastOrDefault();
+            if(lastMessage is not null)
             {
-                image = _selectedMedia.FullPath;
-            }
-            else if (_selectedMedia.ContentType.ToLower().Contains("video"))
-            {
-                video = _selectedMedia.FullPath;
+                lastMessage.Text = Prompt;
             }
 
-            Messages.Add(new ChatMessage { IsUserMessage = true, Text = _prompt, VideoPath = video, Photo = image });
+            
 
             await SendPromptToServer();
 
@@ -125,7 +119,10 @@ namespace LLama_AI.ViewModel
 
         private async Task OnSelectMedia()
         {
-            string action = await Application.Current.MainPage.DisplayActionSheet("Choose media", "Cancel", null, "Take Photo", "Pick Photo", "Record Video", "Pick Video");
+            string action = await Application.Current.MainPage.DisplayActionSheet("Choose media", "Cancel", null, "Take Photo", "Pick Photo");
+            var storageStatus = await Permissions.RequestAsync<Permissions.StorageRead>();
+            await Permissions.RequestAsync<Permissions.StorageWrite>();
+            await Permissions.RequestAsync<Permissions.Camera>();
 
             switch (action)
             {
@@ -135,12 +132,23 @@ namespace LLama_AI.ViewModel
                 case "Pick Photo":
                     _selectedMedia = await MediaPicker.PickPhotoAsync();
                     break;
-                case "Record Video":
-                    _selectedMedia = await MediaPicker.CaptureVideoAsync();
-                    break;
-                case "Pick Video":
-                    _selectedMedia = await MediaPicker.PickVideoAsync();
-                    break;
+            }
+
+            if (_selectedMedia != null)
+            {
+                string video = null;
+                string image = null;
+
+                if (_selectedMedia.ContentType.ToLower().Contains("image"))
+                {
+                    image = _selectedMedia.FullPath;
+                }
+                else if (_selectedMedia.ContentType.ToLower().Contains("video"))
+                {
+                    video = _selectedMedia.FullPath;
+                }
+
+                Messages.Add(new ChatMessage { IsUserMessage = true, Text = _prompt, VideoPath = video, Photo = image });
             }
         }
 

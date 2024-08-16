@@ -18,7 +18,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LLama AI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+7722ad704f44bd2dfd4d64998b697ce3a9f75daa")]
 [assembly: System.Reflection.AssemblyProductAttribute("LLama AI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LLama AI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
